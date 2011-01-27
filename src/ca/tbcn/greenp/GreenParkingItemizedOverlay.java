@@ -7,17 +7,18 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 
-import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
+import com.readystatesoftware.mapviewballoons.BalloonItemizedOverlay;
 
-public class GreenParkingItemizedOverlay extends ItemizedOverlay<OverlayItem> {
+public class GreenParkingItemizedOverlay extends BalloonItemizedOverlay<OverlayItem> {
 
 	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
 	private Context context;
 	
-	public GreenParkingItemizedOverlay(Drawable defaultMarker, Context context) {
-		super(boundCenterBottom(defaultMarker));
+	public GreenParkingItemizedOverlay(Drawable defaultMarker, MapView mapView, Context context) {
+		super(boundCenterBottom(defaultMarker), mapView);
+		// super(boundCenterBottom(defaultMarker));
 		this.context = context;
 	}
 	
@@ -46,7 +47,7 @@ public class GreenParkingItemizedOverlay extends ItemizedOverlay<OverlayItem> {
     }
 
 	@Override
-	protected boolean onTap(int index) {
+	protected boolean onBalloonTap(int index) {
 	  OverlayItem item = mOverlays.get(index);
 	  AlertDialog.Builder dialog = new AlertDialog.Builder(context);
 	  dialog.setTitle("a title");

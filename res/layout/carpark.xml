@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:id="@+id/main">
+
+	<RelativeLayout android:orientation="horizontal"
+		android:layout_height="40sp" android:background="@drawable/background_gradient"
+		android:layout_width="match_parent">
+		<ImageView android:id="@+id/greenp_icon"
+			android:layout_height="wrap_content" android:src="@drawable/small_icon"
+			android:layout_width="wrap_content" android:layout_gravity="center_vertical"
+			android:layout_centerVertical="true" android:padding="2dip"></ImageView>
+
+		<ImageButton android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/center_reticle"
+			android:src="@drawable/center_reticle" android:background="@android:color/transparent"
+			android:layout_gravity="center_vertical|fill_horizontal"
+			android:layout_alignParentRight="true" android:layout_centerVertical="true"
+			android:padding="6dip"></ImageButton>
+
+		<View android:id="@+id/View01" android:layout_width="1dip"
+			android:layout_height="fill_parent" android:background="#C7C6C7"
+			android:layout_toLeftOf="@id/center_reticle" android:padding="2dip"></View>
+
+	
+
+</RelativeLayout>
+
+
+	<com.google.android.maps.MapView
+		android:id="@+id/mapview" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:clickable="true"
+		android:apiKey="0BHqmyD6SFcieZ7JSG6pgrahuv4tjA9ALamUvVg" />
+
+
+
+
+</LinearLayout>

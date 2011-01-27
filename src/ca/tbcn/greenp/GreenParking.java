@@ -1,13 +1,7 @@
 package ca.tbcn.greenp;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -58,7 +52,7 @@ public class GreenParking extends MapActivity {
 	private void loadAndDrawMarkers() {
 		ProgressDialog dialog = ProgressDialog.show(this, "", 
                 "Loading. Please wait...", true);
-		loadCarparks();
+		carparksArray = GreenParkingApp.cachedCarparks(this);
 		drawCarparks();
 		dialog.dismiss();
 	}
@@ -161,66 +155,11 @@ public class GreenParking extends MapActivity {
 		Log.i(TAG, "Finished drawing carparks");
 	}
 	
-	private void loadCarparks() {
-		Log.i(TAG, "Loading JSON");
-		JSONObject json = readJson();
-		Log.i(TAG, "Populating carparksArray");
-	
-		if (json != null) {
-			try {
-				JSONArray carparks = json.getJSONArray("carparks");
-				for (int i = 0; i < carparks.length(); i++) {
-					JSONObject carpark = carparks.getJSONObject(i);
-					carparksArray.add(Carpark.fromJSON(carpark));
-
-				}
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		Log.i(TAG, "Done populating carparksArray");
-	}
-
-	private JSONObject readJson() {
-		InputStream is = null;
-		String jsonString = null;
-		JSONObject json = null;
-
-		Log.i(TAG, "Reading JSON...");
-
-		try {
-			is = getResources().openRawResource(R.raw.carparks);
-			byte[] reader = new byte[is.available()];
-			while (is.read(reader) != -1) {
-			}
-			jsonString = "{\"carparks\": " + new String(reader) + "}";
-		} catch (IOException e) {
-			Log.e(TAG, e.getMessage());
-		} finally {
-			if (is != null) {
-				try {
-					is.close();
-				} catch (Exception e) {
-					Log.e(TAG, e.getMessage());
-				}
-			}
-		}
-
-		try {
-			json = new JSONObject(jsonString);
-		} catch (JSONException e) {
-			Log.e(TAG, e.getMessage());
-		}
-
-		return json;
-	}
-
 	private void createOverlays() {
 		mapOverlays = mapView.getOverlays();
 		Drawable map_marker = this.getResources().getDrawable(
 				R.drawable.map_marker);
-		itemizedOverlay = new GreenParkingItemizedOverlay(map_marker, this);
+		itemizedOverlay = new GreenParkingItemizedOverlay(map_marker, mapView, this);
 		mapOverlays.add(itemizedOverlay);
 		
 		myLocationOverlay = new MyLocationOverlay(this, mapView);
