@@ -1,35 +1,78 @@
 package ca.tbcn.greenp;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
+import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class CarparkActivity extends Activity {
-	private static final String TAG = "MapActivity";
+	private static final String TAG = "CarparkActivity";
 	private static final String CARPARK_INDEX = "carpark_index";
-	
+	private Carpark carpark = null;
+
+	TextView tvTitle;
+	TextView tvFacilityType;
+	TextView tvRate;
+	TextView tvCapacity;
+	TextView tvStreetAddress;
+	TextView tvUrl;
+	WebView webView;
+	Button loadWebsiteButton;
+
+	// TextView tvRateDetails = (TextView)
+	// findViewById(R.id.carpark_rate_details);
 
 	// private GreenParkingItemizedOverlay currentLocationitemizedOverlay;
-
-	private ArrayList<Carpark> carparksArray = new ArrayList<Carpark>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.carpark);
 
-		// loadCarpark...
+		loadCarpark();
+		initFields();
+		updateFields();
 		initButtons();
 	}
-	
+
+	private void loadCarpark() {
+		int carparkIndex = getIntent().getIntExtra(CARPARK_INDEX, -1);
+		carpark = GreenParkingApp.cachedCarparks(this).get(carparkIndex);
+	}
+
+	private void initFields() {
+		tvTitle = (TextView) findViewById(R.id.carpark_title);
+		tvFacilityType = (TextView) findViewById(R.id.carpark_facility_type);
+		tvRate = (TextView) findViewById(R.id.carpark_rate);
+		tvCapacity = (TextView) findViewById(R.id.carpark_capacity);
+		tvStreetAddress = (TextView) findViewById(R.id.carpark_street_address);
+		tvUrl = (TextView) findViewById(R.id.carpark_url);
+	}
+
+	private void updateFields() {
+		tvTitle.setText(carpark.getTitle());
+		tvFacilityType.setText(carpark.getFacilityType());
+		tvRate.setText(carpark.getRate());
+		tvCapacity.setText(carpark.getCapacity());
+		tvStreetAddress.setText(carpark.getStreetAddress());
+		tvUrl.setText(carpark.getUrl());
+		// tvRateDetails.setText(carpark.getRateDetails());
+	}
+
 	/**
 	 * method to start this activity given a carpark index
+	 * 
 	 * @param c
 	 * @param carparkIndex
 	 */
@@ -39,14 +82,119 @@ public class CarparkActivity extends Activity {
 		c.startActivity(intent);
 	}
 
-	private void initButtons() {
-		ImageView reticle_iv = (ImageView) findViewById(R.id.center_reticle);
-		reticle_iv.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				//centerOnMyLocation();
-			}
-		});
+	private void goDirections() {
+		String url = "http://maps.google.com/maps?saddr=&daddr=" + carpark.directionsAddress();
+		Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(url));
+		startActivity(intent);
 	}
 
+	private void goNavigateDriving() {
+		Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri
+				.parse("google.navigation:q=" + carpark.directionsAddress()));
+		startActivity(intent);
+	}
+
+	private void goNavigateWalking() {
+		Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri
+				.parse("google.navigation:q=" + carpark.directionsAddress() + "&mode=w"));
+		startActivity(intent);
+	}
+
+	private void loadWebsite() {
+		LinearLayout webWrapper = (LinearLayout) tvUrl.getParent(); 
+		webWrapper.removeAllViews();
+		WebView webView = new WebView(this);
+		webWrapper.addView(webView);
+		webView.setMinimumHeight(200);
+		webView.setInitialScale(60);
+		webView.getSettings().setBuiltInZoomControls(true);
+		webView.loadUrl(carpark.getUrl());
+	}
+	
+	private void sendToBrowser() {
+		String url = carpark.getUrl();
+		Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(url));
+		startActivity(intent);
+	}
+	
+	private void goStreetview() {
+		// String url = "google.streetview:cbll=46.813812,-71.207378&cbp=1,99.56,,1,-5.27&mz=21";
+		String url = "google.streetview:cbll=" + carpark.getLat() + "," + carpark.getLng();
+		Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(url));
+		startActivity(intent);
+	}
+	
+	private void initButtons() {
+		ImageButton directionsButton = (ImageButton) findViewById(R.id.directions_button);
+		directionsButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				showDirectionsOptions();
+			}
+		});
+		
+		/*
+		 * disabling for now
+		loadWebsiteButton = (Button) findViewById(R.id.load_website_button);
+		loadWebsiteButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				loadWebsite();
+			}
+		});
+		*/
+		
+		/*
+		 * Making text button for now 
+		ImageButton sendToBrowserButton = (ImageButton) findViewById(R.id.browser_button);
+		sendToBrowserButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				sendToBrowser();
+			}
+		});
+		*/
+
+		Button websiteButton = (Button) findViewById(R.id.website_button);
+		websiteButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				sendToBrowser();
+			}
+		});
+
+		Button streetviewButton = (Button) findViewById(R.id.streetview_button);
+		streetviewButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				goStreetview();
+			}
+		});
+
+	}
+
+	private void showDirectionsOptions() {
+		final CharSequence[] items = {"Driving Navigation",
+				"Walking Navigation", "Get Directions" };
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Please Select");
+		builder.setItems(items, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int item) {
+				if (item == 0) {
+					goNavigateDriving();
+				} else if (item == 1) {
+					goNavigateWalking();
+				} else if (item == 2) {
+					goDirections();
+				} else {
+					Toast.makeText(getApplicationContext(), "WTF?",
+							Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+		AlertDialog alert = builder.create();
+		alert.show();
+	}
 
 }

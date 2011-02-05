@@ -1,38 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="fill_parent" android:id="@+id/main">
+	android:layout_height="fill_parent" android:id="@+id/main"
+	android:background="#fff">
+	<ScrollView android:id="@+id/ScrollView01"
+		android:layout_width="wrap_content" android:layout_height="wrap_content">
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="vertical" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:id="@+id/main2"
+			android:background="#fff">
 
-	<RelativeLayout android:orientation="horizontal"
-		android:layout_height="40sp" android:background="@drawable/background_gradient"
-		android:layout_width="match_parent">
-		<ImageView android:id="@+id/greenp_icon"
-			android:layout_height="wrap_content" android:src="@drawable/small_icon"
-			android:layout_width="wrap_content" android:layout_gravity="center_vertical"
-			android:layout_centerVertical="true" android:padding="2dip"></ImageView>
-
-		<ImageButton android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:id="@+id/center_reticle"
-			android:src="@drawable/center_reticle" android:background="@android:color/transparent"
-			android:layout_gravity="center_vertical|fill_horizontal"
-			android:layout_alignParentRight="true" android:layout_centerVertical="true"
-			android:padding="6dip"></ImageButton>
-
-		<View android:id="@+id/View01" android:layout_width="1dip"
-			android:layout_height="fill_parent" android:background="#C7C6C7"
-			android:layout_toLeftOf="@id/center_reticle" android:padding="2dip"></View>
-
-	
-
-</RelativeLayout>
+			<RelativeLayout android:id="@+id/RelativeLayout01"
+				android:layout_height="wrap_content" android:layout_width="fill_parent">
+				<LinearLayout android:id="@+id/LinearLayout01"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:layout_alignParentLeft="true" android:orientation="vertical">
 
 
-	<com.google.android.maps.MapView
-		android:id="@+id/mapview" android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:clickable="true"
-		android:apiKey="0BHqmyD6SFcieZ7JSG6pgrahuv4tjA9ALamUvVg" />
+					<TextView android:layout_height="wrap_content"
+						android:layout_width="wrap_content" android:id="@+id/carpark_title"
+						android:text="@+id/carpark_title" style="@style/Title"></TextView>
+					<TextView android:layout_width="wrap_content"
+						android:layout_height="wrap_content" android:text="@+id/carpark_street_address"
+						android:id="@+id/carpark_street_address" style="@style/Detail"></TextView>
+					<TextView android:layout_width="wrap_content"
+						android:layout_height="wrap_content" android:text="@+id/carpark_rate"
+						android:id="@+id/carpark_rate" style="@style/Detail"></TextView>
+					<TextView android:layout_width="wrap_content"
+						android:layout_height="wrap_content" android:text="@+id/carpark_capacity"
+						android:id="@+id/carpark_capacity" style="@style/Detail"></TextView>
+					<TextView android:layout_width="wrap_content"
+						android:layout_height="wrap_content" android:text="@+id/carpark_facility_type"
+						android:id="@+id/carpark_facility_type" style="@style/Detail"></TextView>
+
+
+					<!--
+						<TextView android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:id="@+id/carpark_rate_details"
+						android:text="@+id/carpark_rate_details"></TextView>
+					-->
+
+				</LinearLayout>
+
+
+				<ImageView android:layout_alignParentRight="true"
+					android:layout_height="wrap_content" android:layout_width="wrap_content"
+					android:id="@+id/streetview"></ImageView>
+			</RelativeLayout>
+			<LinearLayout android:layout_height="wrap_content"
+				android:layout_width="fill_parent" android:id="@+id/button_row"
+				android:padding="6dip">
+				<ImageButton android:layout_height="wrap_content"
+					android:src="@drawable/directions" android:id="@+id/directions_button"
+					android:layout_width="wrap_content">
+				</ImageButton>
+				<!--
+					<ImageButton android:id="@+id/ImageButton02"
+					android:layout_height="wrap_content"
+					android:layout_width="fill_parent" android:layout_weight="1"
+					android:src="@drawable/share"></ImageButton>
+				-->
 
 
 
 
+			
+
+<Button android:layout_width="wrap_content" android:text="@string/open_in_browser" android:id="@+id/website_button" android:layout_height="fill_parent"></Button><Button android:layout_width="wrap_content" android:id="@+id/streetview_button" android:text="@string/streetview" android:layout_height="fill_parent"></Button>
+
+</LinearLayout>
+
+			<LinearLayout style="@style/CarparkWebView" android:id="@+id/web_view_wrapper"
+				android:layout_width="fill_parent" android:layout_height="fill_parent"
+				android:orientation="vertical">
+
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:ellipsize="marquee"
+					android:text="@+id/TextView01" android:id="@+id/carpark_url"
+					android:padding="6dip"></TextView>
+				
+
+
+				<!--
+					disabling for now <Button android:layout_height="wrap_content"
+					android:layout_gravity="center_vertical|center_horizontal"
+					android:id="@+id/load_website_button"
+					android:layout_width="wrap_content"
+					android:text="@string/load_website"></Button>
+				-->
+
+			</LinearLayout>
+		</LinearLayout>
+	</ScrollView>
 </LinearLayout>

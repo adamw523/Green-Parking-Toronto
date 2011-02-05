@@ -39,6 +39,10 @@ public class Carpark implements Serializable {
     	
     	return c;
     }
+    
+    public String directionsAddress() {
+    	return title + "@" + lat + "," + lng;
+    }
 
 	public String getDateScraped() {
 		return dateScraped;
