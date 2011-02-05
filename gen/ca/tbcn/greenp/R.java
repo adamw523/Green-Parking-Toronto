@@ -13,27 +13,46 @@ public final class R {
     public static final class drawable {
         public static final int background_gradient=0x7f020000;
         public static final int balloon_overlay_bg_selector=0x7f020001;
-        public static final int balloon_overlay_close=0x7f020002;
-        public static final int balloon_overlay_focused=0x7f020003;
-        public static final int balloon_overlay_unfocused=0x7f020004;
+        public static final int balloon_overlay_focused=0x7f020002;
+        public static final int balloon_overlay_unfocused=0x7f020003;
+        public static final int browser=0x7f020004;
         public static final int center_reticle=0x7f020005;
         public static final int current_location_marker=0x7f020006;
-        public static final int icon=0x7f020007;
-        public static final int map_marker=0x7f020008;
-        public static final int small_icon=0x7f020009;
-        public static final int vertical_line=0x7f02000a;
+        public static final int directions=0x7f020007;
+        public static final int earth=0x7f020008;
+        public static final int icon=0x7f020009;
+        public static final int map_marker=0x7f02000a;
+        public static final int share=0x7f02000b;
+        public static final int small_icon=0x7f02000c;
+        public static final int vertical_line=0x7f02000d;
     }
     public static final class id {
-        public static final int View01=0x7f060008;
-        public static final int balloon_inner_layout=0x7f060001;
-        public static final int balloon_item_snippet=0x7f060003;
-        public static final int balloon_item_title=0x7f060002;
-        public static final int balloon_main_layout=0x7f060000;
-        public static final int center_reticle=0x7f060007;
-        public static final int close_img_button=0x7f060004;
-        public static final int greenp_icon=0x7f060006;
-        public static final int main=0x7f060005;
-        public static final int mapview=0x7f060009;
+        public static final int LinearLayout01=0x7f070008;
+        public static final int RelativeLayout01=0x7f070007;
+        public static final int ScrollView01=0x7f070005;
+        public static final int TextView01=0x7f070014;
+        public static final int View01=0x7f070018;
+        public static final int balloon_inner_layout=0x7f070001;
+        public static final int balloon_item_snippet=0x7f070003;
+        public static final int balloon_item_title=0x7f070002;
+        public static final int balloon_main_layout=0x7f070000;
+        public static final int button_row=0x7f07000f;
+        public static final int carpark_capacity=0x7f07000c;
+        public static final int carpark_facility_type=0x7f07000d;
+        public static final int carpark_rate=0x7f07000b;
+        public static final int carpark_street_address=0x7f07000a;
+        public static final int carpark_title=0x7f070009;
+        public static final int carpark_url=0x7f070015;
+        public static final int center_reticle=0x7f070017;
+        public static final int directions_button=0x7f070010;
+        public static final int greenp_icon=0x7f070016;
+        public static final int main=0x7f070004;
+        public static final int main2=0x7f070006;
+        public static final int mapview=0x7f070019;
+        public static final int streetview=0x7f07000e;
+        public static final int streetview_button=0x7f070012;
+        public static final int web_view_wrapper=0x7f070013;
+        public static final int website_button=0x7f070011;
     }
     public static final class layout {
         public static final int balloon_overlay=0x7f030000;
@@ -44,7 +63,19 @@ public final class R {
         public static final int carparks=0x7f040000;
     }
     public static final class string {
-        public static final int app_name=0x7f050000;
-        public static final int hello=0x7f050001;
+        public static final int app_name=0x7f050002;
+        public static final int carpark_title=0x7f050003;
+        public static final int load_website=0x7f050004;
+        public static final int open_in_browser=0x7f050001;
+        public static final int streetview=0x7f050000;
+    }
+    public static final class style {
+        /**  
+    <item name="android:background">#bfbfbf</item>
+    
+         */
+        public static final int CarparkWebView=0x7f060002;
+        public static final int Detail=0x7f060001;
+        public static final int Title=0x7f060000;
     }
 }

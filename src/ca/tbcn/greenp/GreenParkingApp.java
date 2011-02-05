@@ -14,8 +14,8 @@ import android.util.Log;
 public class GreenParkingApp {
 	public static final String TAG = "GreenParkingApp";
 	
-	public static ArrayList<Carpark> carparks = new ArrayList<Carpark>();
-	public static JSONObject json;
+	private static ArrayList<Carpark> carparks = new ArrayList<Carpark>();
+	private static JSONObject json;
 	
 	/**
 	 * Return list of carparks.. load if hasn't been populated yet
@@ -96,4 +96,13 @@ public class GreenParkingApp {
 
 		return json;
 	}
+
+	public static ArrayList<Carpark> getCarparks() {
+		return carparks;
+	}
+
+	public static JSONObject getJson() {
+		return json;
+	}
+	
 }

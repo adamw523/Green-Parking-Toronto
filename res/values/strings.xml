@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, GreenParking!</string>
+    <string name="streetview">Street View</string>
+    <string name="open_in_browser">Website</string>
+    
     <string name="app_name">Green Parking Toronto</string>
+<string name="carpark_title">Title</string>
+<string name="load_website">Load Website</string>
 </resources>

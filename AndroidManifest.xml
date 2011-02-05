@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="ca.tbcn.greenp" android:versionCode="1" android:versionName="1.0"
-	android:debuggable="true">
+	package="ca.tbcn.greenp" android:debuggable="true"
+	android:installLocation="auto" android:versionName="1.1.1" android:versionCode="2">
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
 		android:theme="@android:style/Theme.NoTitleBar">
 
@@ -13,9 +13,16 @@
 			</intent-filter>
 		</activity>
 
+		<activity android:name=".CarparkActivity" android:label="@string/app_name">
+			<intent-filter>
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
 
 	</application>
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.INTERNET" />
 
+	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="5"></uses-sdk>
 </manifest>

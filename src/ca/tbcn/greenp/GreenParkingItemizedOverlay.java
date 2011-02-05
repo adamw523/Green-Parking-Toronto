@@ -2,23 +2,25 @@ package ca.tbcn.greenp;
 
 import java.util.ArrayList;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
+import ca.tbcn.greenp.balloon.BalloonItemizedOverlay;
 
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
-import com.readystatesoftware.mapviewballoons.BalloonItemizedOverlay;
 
 public class GreenParkingItemizedOverlay extends BalloonItemizedOverlay<OverlayItem> {
 
+	public static String TAG = "GreenParkingItemizedOverlay";
 	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
 	private Context context;
 	
 	public GreenParkingItemizedOverlay(Drawable defaultMarker, MapView mapView, Context context) {
 		super(boundCenterBottom(defaultMarker), mapView);
 		// super(boundCenterBottom(defaultMarker));
+		setBalloonBottomOffset(defaultMarker.getIntrinsicHeight());
 		this.context = context;
 	}
 	
@@ -48,12 +50,11 @@ public class GreenParkingItemizedOverlay extends BalloonItemizedOverlay<OverlayI
 
 	@Override
 	protected boolean onBalloonTap(int index) {
-	  OverlayItem item = mOverlays.get(index);
-	  AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-	  dialog.setTitle("a title");
-	  dialog.setMessage("a snippet");
-	  dialog.show();
-	  return true;
+		// OverlayItem item = mOverlays.get(index);
+		Log.i(TAG, "Got into onBallonTap");
+		
+		CarparkActivity.callMe(context, index);
+		return true;
 	}
 	
 	public void runPopulate() {

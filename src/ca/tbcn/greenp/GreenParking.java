@@ -1,18 +1,16 @@
 package ca.tbcn.greenp;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -33,10 +31,7 @@ public class GreenParking extends MapActivity {
 	// private GreenParkingItemizedOverlay currentLocationitemizedOverlay;
 
 	LocationManager locationManager;
-	private LocationListener locationListener;
 	
-	private ArrayList<Carpark> carparksArray = new ArrayList<Carpark>();
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,18 +47,38 @@ public class GreenParking extends MapActivity {
 	private void loadAndDrawMarkers() {
 		ProgressDialog dialog = ProgressDialog.show(this, "", 
                 "Loading. Please wait...", true);
-		carparksArray = GreenParkingApp.cachedCarparks(this);
 		drawCarparks();
 		dialog.dismiss();
 	}
 	
 	private void initMap() {
 		mapView = (MapView) findViewById(R.id.mapview);
+		
+		
+		
+		mapView.setOnTouchListener((new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				Log.i(TAG, "Tapped somewhere");
+				return false;
+			}
+		}));
+		mapView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.i(TAG, "Got a click on mapView");
+			}
+		});
+		
+		
+		
+		
+		
 		mapView.setBuiltInZoomControls(true);
 		mapView.setClickable(true);
 		mapView.getController().animateTo(new GeoPoint(
-				(int) (43.73 * 1e6),
-				(int) (-79.381667 * 1e6)));
+				(int) (43.65250 * 1e6),
+				(int) (-79.38167 * 1e6)));
 		mapView.getController().setZoom(13);
 	}
 
@@ -75,24 +90,6 @@ public class GreenParking extends MapActivity {
 			}
 		});
 		// TODO: check for setting background http://groups.google.com/group/android-developers/msg/0714e077e25d63a6
-		
-		/*
-		Button draw_but = (Button) findViewById(R.id.Button01);
-		Button json_but = (Button) findViewById(R.id.Button02);
-		draw_but.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				drawCarparks();
-			}
-		});
-
-		json_but.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				loadCarparks();
-			}
-		});
-		*/
 	}
 
 	private void centerOnMyLocation() {
@@ -111,50 +108,27 @@ public class GreenParking extends MapActivity {
 		// loadCarparks();
 	}
 
-	private void createLocationManager() {
-		locationManager = (LocationManager) this
-				.getSystemService(Context.LOCATION_SERVICE);
-
-		locationListener = new LocationListener() {
-			public void onLocationChanged(Location location) {
-				// Called when a new location is found by the network location
-				// provider.
-				Log.i(TAG, "new location :)");
-				// updateCurrentLocationMarker(location);
-			}
-
-			public void onStatusChanged(String provider, int status,
-					Bundle extras) {
-			}
-
-			public void onProviderEnabled(String provider) {
-			}
-
-			public void onProviderDisabled(String provider) {
-			}
-		};
-
-		// Register the listener with the Location Manager to receive location
-		// updates
-		locationManager.requestLocationUpdates(
-				LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-	}
-
+	/***
+	 * Draw carparks on the carpark overlay
+	 */
 	private void drawCarparks() {
 		Log.i(TAG, "Drawing carparks");
 		itemizedOverlay.clearOverlays();
 
-		for(Carpark c : carparksArray) {
+		for(Carpark c : GreenParkingApp.cachedCarparks(this)) {
 			GeoPoint point = new GeoPoint(
 					(int) (c.getLat() * 1e6),
 					(int) (c.getLng() * 1e6));
-			OverlayItem overlayitem = new OverlayItem(point, "", "");
+			OverlayItem overlayitem = new OverlayItem(point, c.getRate(), c.getCapacity());
 			itemizedOverlay.addOverlay(overlayitem);
 		}
 		itemizedOverlay.runPopulate();
 		Log.i(TAG, "Finished drawing carparks");
 	}
-	
+
+	/***
+	 * Create overlays for carparks and for current location
+	 */
 	private void createOverlays() {
 		mapOverlays = mapView.getOverlays();
 		Drawable map_marker = this.getResources().getDrawable(
