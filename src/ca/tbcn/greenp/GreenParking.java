@@ -53,6 +53,17 @@ public class GreenParking extends MapActivity {
 	// private GreenParkingItemizedOverlay currentLocationitemizedOverlay;
 
 	LocationManager locationManager;
+
+	public void onResume() {
+		super.onResume();
+		myLocationOverlay.enableMyLocation();
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();                        
+		myLocationOverlay.disableMyLocation();
+	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
