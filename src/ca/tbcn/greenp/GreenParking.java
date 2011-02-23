@@ -18,13 +18,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-*/
+ */
 
 package ca.tbcn.greenp;
 
 import java.util.List;
 
 import android.app.ProgressDialog;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -58,13 +59,13 @@ public class GreenParking extends MapActivity {
 		super.onResume();
 		myLocationOverlay.enableMyLocation();
 	}
-	
+
 	@Override
 	public void onPause() {
-		super.onPause();                        
+		super.onPause();
 		myLocationOverlay.disableMyLocation();
 	}
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,44 +75,45 @@ public class GreenParking extends MapActivity {
 		createOverlays();
 		initButtons();
 
+		// Log.i(TAG, "onCreate here");
+
 		loadAndDrawMarkers();
 	}
-	
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		// Log.i(TAG, "got a configuration change");
+	}
+
 	private void loadAndDrawMarkers() {
-		ProgressDialog dialog = ProgressDialog.show(this, "", 
-                "Loading. Please wait...", true);
+		ProgressDialog dialog = ProgressDialog.show(this, "",
+				"Loading. Please wait...", true);
 		drawCarparks();
 		dialog.dismiss();
 	}
-	
+
 	private void initMap() {
 		mapView = (MapView) findViewById(R.id.mapview);
-		
-		
-		
+
 		mapView.setOnTouchListener((new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				Log.i(TAG, "Tapped somewhere");
+				// Log.i(TAG, "Tapped somewhere");
 				return false;
 			}
 		}));
 		mapView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Log.i(TAG, "Got a click on mapView");
+				// Log.i(TAG, "Got a click on mapView");
 			}
 		});
-		
-		
-		
-		
-		
+
 		mapView.setBuiltInZoomControls(true);
 		mapView.setClickable(true);
-		mapView.getController().animateTo(new GeoPoint(
-				(int) (43.65250 * 1e6),
-				(int) (-79.38167 * 1e6)));
+		mapView.getController().animateTo(
+				new GeoPoint((int) (43.65250 * 1e6), (int) (-79.38167 * 1e6)));
 		mapView.getController().setZoom(13);
 	}
 
@@ -122,7 +124,8 @@ public class GreenParking extends MapActivity {
 				centerOnMyLocation();
 			}
 		});
-		// TODO: check for setting background http://groups.google.com/group/android-developers/msg/0714e077e25d63a6
+		// TODO: check for setting background
+		// http://groups.google.com/group/android-developers/msg/0714e077e25d63a6
 	}
 
 	private void centerOnMyLocation() {
@@ -145,18 +148,18 @@ public class GreenParking extends MapActivity {
 	 * Draw carparks on the carpark overlay
 	 */
 	private void drawCarparks() {
-		Log.i(TAG, "Drawing carparks");
+		// Log.i(TAG, "Drawing carparks");
 		itemizedOverlay.clearOverlays();
 
-		for(Carpark c : GreenParkingApp.cachedCarparks(this)) {
-			GeoPoint point = new GeoPoint(
-					(int) (c.getLat() * 1e6),
-					(int) (c.getLng() * 1e6));
-			OverlayItem overlayitem = new OverlayItem(point, c.getRate(), c.getCapacity());
+		for (Carpark c : GreenParkingApp.cachedCarparks(this)) {
+			GeoPoint point = new GeoPoint((int) (c.getLat() * 1e6), (int) (c
+					.getLng() * 1e6));
+			OverlayItem overlayitem = new OverlayItem(point, c.getRate(), c
+					.getCapacity());
 			itemizedOverlay.addOverlay(overlayitem);
 		}
 		itemizedOverlay.runPopulate();
-		Log.i(TAG, "Finished drawing carparks");
+		// Log.i(TAG, "Finished drawing carparks");
 	}
 
 	/***
@@ -166,9 +169,10 @@ public class GreenParking extends MapActivity {
 		mapOverlays = mapView.getOverlays();
 		Drawable map_marker = this.getResources().getDrawable(
 				R.drawable.map_marker);
-		itemizedOverlay = new GreenParkingItemizedOverlay(map_marker, mapView, this);
+		itemizedOverlay = new GreenParkingItemizedOverlay(map_marker, mapView,
+				this);
 		mapOverlays.add(itemizedOverlay);
-		
+
 		myLocationOverlay = new MyLocationOverlay(this, mapView);
 		mapOverlays.add(myLocationOverlay);
 		myLocationOverlay.enableMyLocation();

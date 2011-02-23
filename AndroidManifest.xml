@@ -6,14 +6,16 @@
 		android:theme="@android:style/Theme.NoTitleBar">
 
 		<uses-library android:name="com.google.android.maps" />
-		<activity android:name=".GreenParking" android:label="@string/app_name">
+		<activity android:name=".GreenParking" android:label="@string/app_name"
+		  android:configChanges="orientation|keyboardHidden" >
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
 
-		<activity android:name=".CarparkActivity" android:label="@string/app_name">
+		<activity android:name=".CarparkActivity" android:label="@string/app_name"
+		  android:configChanges="orientation|keyboardHidden">
 			<intent-filter>
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
