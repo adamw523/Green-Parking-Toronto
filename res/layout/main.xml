@@ -26,19 +26,19 @@
 
 </RelativeLayout>
 
-<!-- production --> 
+<!-- production 
   <com.google.android.maps.MapView
     android:id="@+id/mapview" android:layout_width="fill_parent"
     android:layout_height="fill_parent" android:clickable="true"
     android:apiKey="0BHqmyD6SFcgo4_GmTJQO6v7CVrF5uYcDUKlopQ" />
+ -->
 
-
-<!--  development 
+<!-- development --> 
 	<com.google.android.maps.MapView
 		android:id="@+id/mapview" android:layout_width="fill_parent"
 		android:layout_height="fill_parent" android:clickable="true"
 		android:apiKey="0BHqmyD6SFcieZ7JSG6pgrahuv4tjA9ALamUvVg" />
--->
+<!--  -->
 
 
 

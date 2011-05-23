@@ -76,7 +76,7 @@ public class CarparkActivity extends Activity {
 
 	private void loadCarpark() {
 		int carparkIndex = getIntent().getIntExtra(CARPARK_INDEX, -1);
-		carpark = GreenParkingApp.cachedCarparks(this).get(carparkIndex);
+		carpark = GreenParkingApp.getCarparks(this).get(carparkIndex);
 	}
 
 	private void initFields() {

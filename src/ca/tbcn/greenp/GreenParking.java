@@ -99,14 +99,14 @@ public class GreenParking extends MapActivity {
 		mapView.setOnTouchListener((new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				// Log.i(TAG, "Tapped somewhere");
+				Log.i(TAG, "Tapped somewhere");
 				return false;
 			}
 		}));
 		mapView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// Log.i(TAG, "Got a click on mapView");
+				Log.i(TAG, "Got a click on mapView");
 			}
 		});
 
@@ -151,7 +151,7 @@ public class GreenParking extends MapActivity {
 		// Log.i(TAG, "Drawing carparks");
 		itemizedOverlay.clearOverlays();
 
-		for (Carpark c : GreenParkingApp.cachedCarparks(this)) {
+		for (Carpark c : GreenParkingApp.getCarparks(this)) {
 			GeoPoint point = new GeoPoint((int) (c.getLat() * 1e6), (int) (c
 					.getLng() * 1e6));
 			OverlayItem overlayitem = new OverlayItem(point, c.getRate(), c

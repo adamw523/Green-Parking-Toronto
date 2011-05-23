@@ -72,6 +72,8 @@ public abstract class BalloonItemizedOverlay<Item> extends
 		this.mapView = mapView;
 		viewOffset = 0;
 		mc = mapView.getController();
+		
+		Log.i(TAG, "Getting initialized");
 
 		mapView.setOnTouchListener((new OnTouchListener() {
 			@Override
