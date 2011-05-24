@@ -22,7 +22,10 @@ THE SOFTWARE.
 
 package ca.tbcn.greenp;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.apache.http.client.ClientProtocolException;
 
 import android.app.ProgressDialog;
 import android.content.res.Configuration;
@@ -30,6 +33,9 @@ import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -84,6 +90,36 @@ public class GreenParking extends MapActivity {
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		// Log.i(TAG, "got a configuration change");
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Log.d(TAG, "id: " + item.getItemId());
+		
+		switch (item.getItemId()) {
+		case R.id.refresh_carparks:
+			try {
+				String s = Util.httpGet(GreenParkingApp.JSON_URL);
+				Log.d(TAG, "l: " + s.length());
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			GreenParkingApp.refreshCarparks(this);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	private void loadAndDrawMarkers() {

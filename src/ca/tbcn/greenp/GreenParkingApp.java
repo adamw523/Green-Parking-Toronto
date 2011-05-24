@@ -42,7 +42,8 @@ public class GreenParkingApp {
 	private static String JSON_FILE_NAME = "carparks.json";
 	public static final String PREFS_NAME = "GreenParkingPrefs";
 	public static final String LAST_SYNC_PREF = "lastSyncStamp";
-	
+	public static final String JSON_URL = "http://api.scraperwiki.com/api/1.0/datastore/sqlite?format=jsondict&name=greenp_carparks&query=select%20*%20from%20swdata%20limit%20500";
+
 	public static ArrayList<Carpark> getCarparks(Context context) {
 		if (carparks == null) {
 			loadCarparks(context);
@@ -50,7 +51,7 @@ public class GreenParkingApp {
 
 		return carparks;
 	}
-	
+
 	/**
 	 * Load carparks by reading JSON, then populating carparks
 	 * 
@@ -61,7 +62,7 @@ public class GreenParkingApp {
 		Log.i(TAG, "Loading JSON");
 		// Get the JSON
 		JSONObject json = GreenParkingApp.getCarparksJson(context);
-		
+
 		Log.i(TAG, "Populating carparksArray");
 
 		// Parse the JSON
@@ -92,7 +93,7 @@ public class GreenParkingApp {
 		JSONObject json = null;
 
 		try {
-			
+
 			jsonString = "{\"carparks\": " + getJsonFileContents(context) + "}";
 			json = new JSONObject(jsonString);
 
@@ -114,24 +115,25 @@ public class GreenParkingApp {
 
 		return json;
 	}
-	
+
 	/**
 	 * Load json from stored file, create file if it's not there
 	 * 
 	 * @param context
 	 * @return
-	 * @throws IOException 
+	 * @throws IOException
 	 */
-	public static String getJsonFileContents(Context context) throws IOException {
+	public static String getJsonFileContents(Context context)
+			throws IOException {
 		if (!Util.fileExists(context, JSON_FILE_NAME)) {
 			seedJsonFile(context);
 		}
-		
+
 		FileInputStream fis = context.openFileInput(JSON_FILE_NAME);
-		
+
 		String contents = Util.inputStreamToString(fis);
 		fis.close();
-		
+
 		return contents;
 	}
 
@@ -139,11 +141,12 @@ public class GreenParkingApp {
 		// read contents of seed file
 		InputStream is = context.getResources().openRawResource(R.raw.carparks);
 		String seedContents = Util.inputStreamToString(is);
-		
+
 		updateJsonFile(context, seedContents);
 	}
 
-	public static void updateJsonFile(Context context, String contents) throws IOException {
+	public static void updateJsonFile(Context context, String contents)
+			throws IOException {
 		// write out to local file
 		FileOutputStream fos = context.openFileOutput(JSON_FILE_NAME,
 				Context.MODE_PRIVATE);
@@ -152,13 +155,24 @@ public class GreenParkingApp {
 	}
 
 	public static Long getLastSyncStamp(Context context) {
-		SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+		SharedPreferences settings = context.getSharedPreferences(PREFS_NAME,
+				Context.MODE_PRIVATE);
 		return settings.getLong(LAST_SYNC_PREF, 0);
 	}
-	
+
 	public static void updateLastSyncStamp(Context context) {
-		SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+		SharedPreferences settings = context.getSharedPreferences(PREFS_NAME,
+				Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putLong(LAST_SYNC_PREF, System.currentTimeMillis());
+	}
+
+	/**
+	 * Refresh carparks from JSON on the web
+	 * 
+	 * @param context
+	 */
+	public static void refreshCarparks(Context context) {
+		
 	}
 }

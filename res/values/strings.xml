@@ -6,4 +6,5 @@
 	<string name="app_name">Green Parking Toronto</string>
 	<string name="carpark_title">Title</string>
 	<string name="load_website">Load Website</string>
+	<string name="refresh_carparks">Refresh Carparks</string>
 </resources>

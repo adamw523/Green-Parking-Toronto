@@ -20,44 +20,49 @@ public final class R {
         public static final int current_location_marker=0x7f020006;
         public static final int directions=0x7f020007;
         public static final int earth=0x7f020008;
-        public static final int icon=0x7f020009;
-        public static final int map_marker=0x7f02000a;
-        public static final int share=0x7f02000b;
-        public static final int small_icon=0x7f02000c;
-        public static final int vertical_line=0x7f02000d;
+        public static final int ic_menu_refresh=0x7f020009;
+        public static final int icon=0x7f02000a;
+        public static final int map_marker=0x7f02000b;
+        public static final int share=0x7f02000c;
+        public static final int small_icon=0x7f02000d;
+        public static final int vertical_line=0x7f02000e;
     }
     public static final class id {
-        public static final int LinearLayout01=0x7f070008;
-        public static final int RelativeLayout01=0x7f070007;
-        public static final int ScrollView01=0x7f070005;
-        public static final int TextView01=0x7f070014;
-        public static final int View01=0x7f070018;
-        public static final int balloon_inner_layout=0x7f070001;
-        public static final int balloon_item_snippet=0x7f070003;
-        public static final int balloon_item_title=0x7f070002;
-        public static final int balloon_main_layout=0x7f070000;
-        public static final int button_row=0x7f07000f;
-        public static final int carpark_capacity=0x7f07000c;
-        public static final int carpark_facility_type=0x7f07000d;
-        public static final int carpark_rate=0x7f07000b;
-        public static final int carpark_street_address=0x7f07000a;
-        public static final int carpark_title=0x7f070009;
-        public static final int carpark_url=0x7f070015;
-        public static final int center_reticle=0x7f070017;
-        public static final int directions_button=0x7f070010;
-        public static final int greenp_icon=0x7f070016;
-        public static final int main=0x7f070004;
-        public static final int main2=0x7f070006;
-        public static final int mapview=0x7f070019;
-        public static final int streetview=0x7f07000e;
-        public static final int streetview_button=0x7f070012;
-        public static final int web_view_wrapper=0x7f070013;
-        public static final int website_button=0x7f070011;
+        public static final int LinearLayout01=0x7f080008;
+        public static final int RelativeLayout01=0x7f080007;
+        public static final int ScrollView01=0x7f080005;
+        public static final int TextView01=0x7f080014;
+        public static final int View01=0x7f080018;
+        public static final int balloon_inner_layout=0x7f080001;
+        public static final int balloon_item_snippet=0x7f080003;
+        public static final int balloon_item_title=0x7f080002;
+        public static final int balloon_main_layout=0x7f080000;
+        public static final int button_row=0x7f08000f;
+        public static final int carpark_capacity=0x7f08000c;
+        public static final int carpark_facility_type=0x7f08000d;
+        public static final int carpark_rate=0x7f08000b;
+        public static final int carpark_street_address=0x7f08000a;
+        public static final int carpark_title=0x7f080009;
+        public static final int carpark_url=0x7f080015;
+        public static final int center_reticle=0x7f080017;
+        public static final int directions_button=0x7f080010;
+        public static final int greenp_icon=0x7f080016;
+        public static final int main=0x7f080004;
+        public static final int main2=0x7f080006;
+        public static final int mapview=0x7f080019;
+        public static final int refresh_carparks=0x7f08001a;
+        public static final int streetview=0x7f08000e;
+        public static final int streetview_button=0x7f080012;
+        public static final int web_view_wrapper=0x7f080013;
+        public static final int website_button=0x7f080011;
     }
     public static final class layout {
         public static final int balloon_overlay=0x7f030000;
         public static final int carpark=0x7f030001;
         public static final int main=0x7f030002;
+    }
+    public static final class menu {
+        public static final int main_menu=0x7f070000;
     }
     public static final class raw {
         public static final int carparks=0x7f040000;
@@ -67,6 +72,7 @@ public final class R {
         public static final int carpark_title=0x7f050003;
         public static final int load_website=0x7f050004;
         public static final int open_in_browser=0x7f050001;
+        public static final int refresh_carparks=0x7f050005;
         public static final int streetview=0x7f050000;
     }
     public static final class style {
