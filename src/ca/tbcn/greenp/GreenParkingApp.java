@@ -33,15 +33,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 public class GreenParkingApp {
 	public static final String TAG = "GreenParkingApp";
-
 	private static ArrayList<Carpark> carparks = null;
-
 	private static String JSON_FILE_NAME = "carparks.json";
-
+	public static final String PREFS_NAME = "GreenParkingPrefs";
+	public static final String LAST_SYNC_PREF = "lastSyncStamp";
+	
 	public static ArrayList<Carpark> getCarparks(Context context) {
 		if (carparks == null) {
 			loadCarparks(context);
@@ -150,4 +151,14 @@ public class GreenParkingApp {
 		fos.close();
 	}
 
+	public static Long getLastSyncStamp(Context context) {
+		SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+		return settings.getLong(LAST_SYNC_PREF, 0);
+	}
+	
+	public static void updateLastSyncStamp(Context context) {
+		SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putLong(LAST_SYNC_PREF, System.currentTimeMillis());
+	}
 }
