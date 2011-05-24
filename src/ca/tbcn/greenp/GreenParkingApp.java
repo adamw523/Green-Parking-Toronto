@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import org.apache.http.client.ClientProtocolException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -139,6 +140,7 @@ public class GreenParkingApp {
 
 	public static void seedJsonFile(Context context) throws IOException {
 		// read contents of seed file
+		Log.d(TAG, "Seeding carparks");
 		InputStream is = context.getResources().openRawResource(R.raw.carparks);
 		String seedContents = Util.inputStreamToString(is);
 
@@ -172,7 +174,8 @@ public class GreenParkingApp {
 	 * 
 	 * @param context
 	 */
-	public static void refreshCarparks(Context context) {
-		
+	public static String fetchCarparksFromHWeb(Context context) throws ClientProtocolException, IOException {
+		String s = Util.httpGet(GreenParkingApp.JSON_URL);
+		return s;
 	}
 }

@@ -22,12 +22,10 @@ THE SOFTWARE.
 
 package ca.tbcn.greenp;
 
-import java.io.IOException;
 import java.util.List;
 
-import org.apache.http.client.ClientProtocolException;
-
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
@@ -101,21 +99,10 @@ public class GreenParkingActivity extends MapActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Log.d(TAG, "id: " + item.getItemId());
-		
 		switch (item.getItemId()) {
 		case R.id.refresh_carparks:
-			try {
-				String s = Util.httpGet(GreenParkingApp.JSON_URL);
-				Log.d(TAG, "l: " + s.length());
-			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			GreenParkingApp.refreshCarparks(this);
+			Intent intent = new Intent(this, UpdateService.class);
+			startService(intent);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
